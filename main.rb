@@ -4,6 +4,7 @@ require "date"
 require_relative "./lib/readers/loader.rb"
 require_relative "./lib/responses/response.rb"
 require_relative "./src/slots_finder_service.rb"
+require_relative "./src/booking_service.rb"
 
 p "---------------"
 
@@ -16,13 +17,13 @@ photopraphers = Responses::Response.new(file["photographers"], "photographer").e
 # Slots
 slots_of_all_photopraphers =[]
 photopraphers.each do |ph|
-	slots = Services::SlotsFinderService.call(photopraphers.first)
-	slots_of_all_photopraphers << slots
+	slots = Services::SlotsFinderService.call(ph)
+	slots_of_all_photopraphers.concat(slots)
 end
 
 p slots_of_all_photopraphers
 
-duration = 90
-# booking = Services::BookingService.call(photopraphers.first.id, duration)
+duration = 340
+# p booking = Services::BookingService.call(photopraphers, duration, slots_of_all_photopraphers)
 
 
